@@ -33,4 +33,8 @@ dependencies {
     implementation(libs.logback.classic)
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)
+    implementation(libs.koin.ktor)
+    implementation(libs.koin.logger.slf4j)
+    implementation(libs.mongodb.driver.kotlin)
+    implementation(libs.ktor.server.call.logging)
 }

@@ -1,5 +1,7 @@
 package com.example.data.repository
 
+import com.example.data.database.entity.QuizQuestionEntity
+import com.example.data.mapper.toQuizQuestionEntity
 import com.example.data.util.Constant.QUESTIONS_COLLECTION_NAME
 import com.example.domin.model.QuizQuestion
 import com.example.domin.repository.QuizQuestionRepository
@@ -9,7 +11,7 @@ class QuizQuestionRepositoryImpl(
     mongoDatabase: MongoDatabase
 ) : QuizQuestionRepository {
 
-    private val questionCollection = mongoDatabase.getCollection<QuizQuestion>(QUESTIONS_COLLECTION_NAME)
+    private val questionCollection = mongoDatabase.getCollection<QuizQuestionEntity>(QUESTIONS_COLLECTION_NAME)
 
     private val quizQuestions = mutableListOf<QuizQuestion>()
 
@@ -29,7 +31,7 @@ class QuizQuestionRepositoryImpl(
     }
 
     override suspend fun upsertQuizQuestion(quizQuestion: QuizQuestion) {
-        questionCollection.insertOne(quizQuestion)
+        questionCollection.insertOne(quizQuestion.toQuizQuestionEntity())
     }
 
     override suspend fun deleteQuizQuestionById(id: String): Boolean {

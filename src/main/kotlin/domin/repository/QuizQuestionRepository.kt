@@ -3,8 +3,8 @@ package com.example.domin.repository
 import com.example.domin.model.QuizQuestion
 
 interface QuizQuestionRepository {
-    fun getAllQuizQuestions(quizTopicCode: Int?, limit: Int?): List<QuizQuestion>
-    fun getQuizQuestionById(id: String): QuizQuestion?
-    fun upsertQuizQuestion(quizQuestion: QuizQuestion)
-    fun deleteQuizQuestionById(id: String): Boolean
+    suspend fun getAllQuizQuestions(quizTopicCode: Int?, limit: Int?): List<QuizQuestion>
+    suspend fun getQuizQuestionById(id: String): QuizQuestion?
+    suspend fun upsertQuizQuestion(quizQuestion: QuizQuestion)
+    suspend fun deleteQuizQuestionById(id: String): Boolean
 }

@@ -1,5 +1,6 @@
 package com.example.presentaion.config
 
+import com.example.data.database.DatabaseFactory
 import com.example.data.repository.QuizQuestionRepositoryImpl
 import com.example.domin.repository.QuizQuestionRepository
 import com.example.presentaion.routes.quiz_question.deleteQuizQuestionById
@@ -11,7 +12,8 @@ import io.ktor.server.application.*
 import io.ktor.server.routing.*
 
 fun Application.configureRouting() {
-    val quizQuestionRepository: QuizQuestionRepository = QuizQuestionRepositoryImpl()
+    val mongoDatabase = DatabaseFactory.create()
+    val quizQuestionRepository: QuizQuestionRepository = QuizQuestionRepositoryImpl(mongoDatabase)
     routing {
 
         root()

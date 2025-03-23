@@ -17,6 +17,5 @@ fun Route.getAllQuizQuestions(
         } else {
             call.respond(message = "No Questions found", status = HttpStatusCode.NotFound)
         }
-        call.respond(questions)
     }
 }

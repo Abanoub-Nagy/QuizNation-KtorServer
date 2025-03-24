@@ -47,21 +47,17 @@ class QuizTopicRepositoryImpl(
     override suspend fun upsertQuizTopic(topic: QuizTopic): Result<Unit, DataError> {
         return try {
             if (topic.id == null) {
-                topicsCollection.insertOne(
-                    topic.toQuizTopicEntity()
-                )
+                topicsCollection.insertOne(topic.toQuizTopicEntity())
             } else {
                 val filterQuery = Filters.eq(
                     QuizTopicEntity::_id.name, topic.id
                 )
                 val updateQuery = Updates.combine(
                     Updates.set(QuizTopicEntity::name.name, topic.name),
-                    Updates.set(QuizTopicEntity::code.name, topic.code),
-                    Updates.set(QuizTopicEntity::imageUrl.name, topic.imageUrl)
+                    Updates.set(QuizTopicEntity::imageUrl.name, topic.imageUrl),
+                    Updates.set(QuizTopicEntity::code.name, topic.code)
                 )
-                val updateResult = topicsCollection.updateOne(
-                    filterQuery, updateQuery
-                )
+                val updateResult = topicsCollection.updateOne(filterQuery, updateQuery)
                 if (updateResult.modifiedCount == 0L) {
                     return Result.Failure(DataError.NotFound)
                 }

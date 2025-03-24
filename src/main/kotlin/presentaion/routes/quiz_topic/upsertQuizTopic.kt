@@ -1,0 +1,30 @@
+package com.example.presentaion.routes.quiz_topic
+
+import com.example.domin.model.QuizTopic
+import com.example.domin.repository.QuizTopicRepository
+import com.example.domin.util.onFailure
+import com.example.domin.util.onSuccess
+import com.example.presentaion.util.respondWithError
+import io.ktor.http.*
+import io.ktor.server.request.*
+import io.ktor.server.resources.post
+import io.ktor.server.response.*
+import io.ktor.server.routing.Route
+
+fun Route.upsertQuizTopic(
+    quizTopicRepository: QuizTopicRepository
+) {
+    post<QuizTopicRoutesPath> {
+        val quizTopic = call.receive<QuizTopic>()
+        quizTopicRepository.upsertQuizTopic(quizTopic)
+            .onSuccess {
+                call.respond(
+                    message = "Quiz topic added",
+                    status = HttpStatusCode.Created
+                )
+            }
+            .onFailure { error ->
+                respondWithError(error = error)
+            }
+    }
+}

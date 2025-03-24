@@ -1,8 +1,6 @@
  package com.example
 
-import com.example.presentaion.config.configSerialization
-import com.example.presentaion.config.configureLogging
-import com.example.presentaion.config.configureRouting
+import com.example.presentaion.config.*
 import io.ktor.server.application.*
 
  fun main(args: Array<String>) {
@@ -11,6 +9,8 @@ import io.ktor.server.application.*
 @Suppress("unused") // Referenced in application.conf
 fun Application.module() {
     configSerialization()
+    configureStatusPages()
     configureRouting()
     configureLogging()
+    configureValidation()
 }

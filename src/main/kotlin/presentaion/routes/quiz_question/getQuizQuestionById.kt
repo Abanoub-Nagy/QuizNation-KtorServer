@@ -5,15 +5,16 @@ import com.example.domin.util.onFailure
 import com.example.domin.util.onSuccess
 import com.example.presentaion.util.respondWithError
 import io.ktor.http.*
+import io.ktor.server.resources.*
 import io.ktor.server.response.*
-import io.ktor.server.routing.*
+import io.ktor.server.routing.Route
+
 
 fun Route.getAllQuizQuestionById(
     repository: QuizQuestionRepository
 ) {
-    get(path = "/quiz/questions/{questionId}") {
-        val id = call.parameters["questionId"]
-        repository.getQuizQuestionById(id)
+    get<QuizQuestionRoutesPath.ById> { path ->
+        repository.getQuizQuestionById(path.questionId)
             .onSuccess { question ->
                 call.respond(message = question, status = HttpStatusCode.OK)
             }

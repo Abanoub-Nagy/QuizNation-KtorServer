@@ -7,13 +7,16 @@ import com.example.domin.util.onSuccess
 import com.example.presentaion.util.respondWithError
 import io.ktor.http.*
 import io.ktor.server.request.*
+
+import io.ktor.server.resources.*
 import io.ktor.server.response.*
-import io.ktor.server.routing.*
+import io.ktor.server.routing.Route
+
 
 fun Route.upsertQuizQuestion(
     repository: QuizQuestionRepository
 ) {
-    post("/quiz/questions") {
+    post<QuizQuestionRoutesPath> {
         val question = call.receive<QuizQuestion>()
         repository.upsertQuizQuestion(question)
             .onSuccess {

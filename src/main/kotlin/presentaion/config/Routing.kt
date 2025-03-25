@@ -1,9 +1,6 @@
 package com.example.presentaion.config
 
-import com.example.data.database.DatabaseFactory
-import com.example.data.repository.IssueReportRepositoryImpl
-import com.example.data.repository.QuizQuestionRepositoryImpl
-import com.example.data.repository.QuizTopicRepositoryImpl
+import com.example.domin.repository.IssueReportRepository
 import com.example.domin.repository.QuizQuestionRepository
 import com.example.domin.repository.QuizTopicRepository
 import com.example.presentaion.routes.issue_report.deleteIssueReportById
@@ -22,15 +19,16 @@ import io.ktor.server.application.*
 import io.ktor.server.http.content.*
 import io.ktor.server.resources.*
 import io.ktor.server.routing.*
+import org.koin.ktor.ext.inject
 
 fun Application.configureRouting() {
 
     install(Resources)
 
-    val mongoDatabase = DatabaseFactory.create()
-    val quizQuestionRepository: QuizQuestionRepository = QuizQuestionRepositoryImpl(mongoDatabase)
-    val quizTopicRepository: QuizTopicRepository = QuizTopicRepositoryImpl(mongoDatabase)
-    val issueReportRepository = IssueReportRepositoryImpl(mongoDatabase)
+    val quizQuestionRepository: QuizQuestionRepository by inject()
+    val quizTopicRepository: QuizTopicRepository by inject()
+    val issueReportRepository: IssueReportRepository by inject()
+
     routing {
         root()
 

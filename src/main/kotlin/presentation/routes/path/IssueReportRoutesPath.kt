@@ -1,6 +1,6 @@
-package com.example.presentation.routes.issue_report
+package com.example.presentation.routes.path
 
-import io.ktor.resources.*
+import io.ktor.resources.Resource
 
 @Resource(path = "/report/issues")
 class IssueReportRoutesPath {

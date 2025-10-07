@@ -1,6 +1,6 @@
-package com.example.presentation.routes.quiz_question
+package com.example.presentation.routes.path
 
-import io.ktor.resources.*
+import io.ktor.resources.Resource
 
 @Resource("/quiz/questions")
 class QuizQuestionRoutesPath(

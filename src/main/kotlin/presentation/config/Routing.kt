@@ -3,14 +3,9 @@ package com.example.presentation.config
 import com.example.domain.repository.IssueReportRepository
 import com.example.domain.repository.QuizQuestionRepository
 import com.example.domain.repository.QuizTopicRepository
-import com.example.presentation.routes.issue_report.deleteIssueReportById
-import com.example.presentation.routes.issue_report.getAllIssueReports
-import com.example.presentation.routes.issue_report.insertIssueReport
-import com.example.presentation.routes.quiz_question.*
-import com.example.presentation.routes.quiz_topic.deleteQuizTopicById
-import com.example.presentation.routes.quiz_topic.getAllQuizTopics
-import com.example.presentation.routes.quiz_topic.getQuizTopicById
-import com.example.presentation.routes.quiz_topic.upsertQuizTopic
+import com.example.presentation.routes.issueReportRoutes
+import com.example.presentation.routes.quizQuestionsRoutes
+import com.example.presentation.routes.quizTopicsRoutes
 import com.example.presentation.routes.root
 import io.ktor.server.application.*
 import io.ktor.server.http.content.*
@@ -28,26 +23,12 @@ fun Application.configureRouting() {
 
     routing {
         root()
-
         //Quiz Question
-        getAllQuizQuestions(quizQuestionRepository)
-        upsertQuizQuestion(quizQuestionRepository)
-        insertQuizQuestionInBulk(quizQuestionRepository)
-        getRandomQuizQuestions(quizQuestionRepository)
-        deleteQuizQuestionById(quizQuestionRepository)
-        getAllQuizQuestionById(quizQuestionRepository)
-
+        quizQuestionsRoutes(quizQuestionRepository)
         //Quiz Topic
-        getAllQuizTopics(quizTopicRepository)
-        upsertQuizTopic(quizTopicRepository)
-        getQuizTopicById(quizTopicRepository)
-        deleteQuizTopicById(quizTopicRepository)
-
+        quizTopicsRoutes(quizTopicRepository)
         //Issue Report
-        getAllIssueReports(issueReportRepository)
-        deleteIssueReportById(issueReportRepository)
-        insertIssueReport(issueReportRepository)
-
+        issueReportRoutes(issueReportRepository)
         staticResources(
             remotePath = "/images", basePackage = "images"
         )

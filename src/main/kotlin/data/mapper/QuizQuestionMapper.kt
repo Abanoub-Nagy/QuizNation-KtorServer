@@ -1,7 +1,7 @@
 package com.example.data.mapper
 
 import com.example.data.database.entity.QuizQuestionEntity
-import com.example.domin.model.QuizQuestion
+import com.example.domain.model.QuizQuestion
 
 fun QuizQuestionEntity.toQuizQuestion() = QuizQuestion(
     id = _id,

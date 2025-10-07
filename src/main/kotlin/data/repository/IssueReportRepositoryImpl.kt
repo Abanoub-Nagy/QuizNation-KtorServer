@@ -4,10 +4,10 @@ import com.example.data.database.entity.IssueReportEntity
 import com.example.data.mapper.IssueReportEntity
 import com.example.data.mapper.toIssueReport
 import com.example.data.util.Constant.ISSUE_REPORTS_COLLECTION_NAME
-import com.example.domin.model.IssueReport
-import com.example.domin.repository.IssueReportRepository
-import com.example.domin.util.DataError
-import com.example.domin.util.Result
+import com.example.domain.model.IssueReport
+import com.example.domain.repository.IssueReportRepository
+import com.example.domain.util.DataError
+import com.example.domain.util.Result
 import com.mongodb.client.model.Filters
 import com.mongodb.kotlin.client.coroutine.MongoDatabase
 import kotlinx.coroutines.flow.map

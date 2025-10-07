@@ -1,7 +1,7 @@
 package com.example.data.mapper
 
 import com.example.data.database.entity.IssueReportEntity
-import com.example.domin.model.IssueReport
+import com.example.domain.model.IssueReport
 
 fun IssueReportEntity.toIssueReport() = IssueReport(
     id = _id,

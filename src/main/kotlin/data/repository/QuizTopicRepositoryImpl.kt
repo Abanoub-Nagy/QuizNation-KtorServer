@@ -4,10 +4,10 @@ import com.example.data.database.entity.QuizTopicEntity
 import com.example.data.mapper.toQuizTopic
 import com.example.data.mapper.toQuizTopicEntity
 import com.example.data.util.Constant.TOPIC_COLLECTION_NAME
-import com.example.domin.model.QuizTopic
-import com.example.domin.repository.QuizTopicRepository
-import com.example.domin.util.DataError
-import com.example.domin.util.Result
+import com.example.domain.model.QuizTopic
+import com.example.domain.repository.QuizTopicRepository
+import com.example.domain.util.DataError
+import com.example.domain.util.Result
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Sorts
 import com.mongodb.client.model.Updates

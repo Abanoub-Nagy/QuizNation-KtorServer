@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import org.bson.conversions.Bson
+import kotlin.collections.plus
 
 class QuizQuestionRepositoryImpl(
     mongoDatabase: MongoDatabase
@@ -47,24 +48,27 @@ class QuizQuestionRepositoryImpl(
         }
     }
 
-    override suspend fun getRandomQuizQuestions(
-        quizTopicCode: Int?, limit: Int?
+    override suspend fun getRandomQuestions(
+        topicCode: Int?,
+        limit: Int?
     ): Result<List<QuizQuestion>, DataError> {
         return try {
             val questionLimit = limit?.takeIf { it > 0 } ?: 10
             val filterQuery = Filters.eq(
-                QuizQuestionEntity::quizTopicCode.name, quizTopicCode
+                QuizQuestionEntity::quizTopicCode.name, topicCode
             )
-
-            val matchStage = if (quizTopicCode == null || quizTopicCode == 0) {
+            val matchStage = if (topicCode == null || topicCode == 0) {
                 emptyList<Bson>()
             } else {
                 listOf(Aggregates.match(filterQuery))
             }
 
-            val pipeline = matchStage + listOf(Aggregates.sample(questionLimit))
+            val pipeline = matchStage + Aggregates.sample(questionLimit)
 
-            val questions = questionCollection.aggregate(pipeline).map { it.toQuizQuestion() }.toList()
+            val questions = questionCollection
+                .aggregate(pipeline)
+                .map { it.toQuizQuestion() }
+                .toList()
 
             if (questions.isNotEmpty()) {
                 Result.Success(questions)
@@ -155,7 +159,7 @@ class QuizQuestionRepositoryImpl(
     }
 
     override suspend fun insertQuizQuestionInBulk(questions: List<QuizQuestion>): Result<Unit, DataError> {
-        return try {
+        try {
             val questionEntities = questions.map { it.toQuizQuestionEntity() }
             questionCollection.insertMany(questionEntities)
             return Result.Success(Unit)

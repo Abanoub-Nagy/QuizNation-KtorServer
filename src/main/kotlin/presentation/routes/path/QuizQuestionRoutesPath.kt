@@ -1,6 +1,7 @@
 package com.example.presentation.routes.path
 
 import io.ktor.resources.Resource
+import kotlinx.serialization.Serializable
 
 @Resource("/quiz/questions")
 class QuizQuestionRoutesPath(
@@ -14,10 +15,11 @@ class QuizQuestionRoutesPath(
     @Resource("bulk")
     data class Bulk(val parent: QuizQuestionRoutesPath = QuizQuestionRoutesPath())
 
-    @Resource("random")
+    @Serializable
+    @Resource("/random")
     data class Random(
         val parent: QuizQuestionRoutesPath = QuizQuestionRoutesPath(),
-        val quizTopicCode: Int? = null,
+        val topicCode: Int? = null,  // ← Match Android parameter name
         val limit: Int? = null
     )
 }

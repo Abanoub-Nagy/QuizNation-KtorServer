@@ -11,9 +11,7 @@ interface QuizQuestionRepository {
     ): Result<List<QuizQuestion>, DataError>
 
 
-    suspend fun getRandomQuizQuestions(
-        quizTopicCode: Int?, limit: Int?
-    ): Result<List<QuizQuestion>, DataError>
+    suspend fun getRandomQuestions(topicCode: Int?, limit: Int?): Result<List<QuizQuestion>, DataError>
 
     suspend fun upsertQuizQuestion(
         quizQuestion: QuizQuestion

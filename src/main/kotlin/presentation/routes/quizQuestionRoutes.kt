@@ -42,10 +42,13 @@ fun Route.quizQuestionsRoutes(
     }
 
     get<QuizQuestionRoutesPath.Random>() { path ->
-        repository.getRandomQuizQuestions(path.quizTopicCode, path.limit).onSuccess { questions ->
-            call.respond(
-                message = questions, status = HttpStatusCode.OK
-            )
+        println("🌐 API received: topicCode=${path.topicCode}, limit=${path.limit}")  // Debug
+
+        repository.getRandomQuestions(
+            path.topicCode,  // ← Use topicCode now
+            path.limit
+        ).onSuccess { questions ->
+            call.respond(message = questions, status = HttpStatusCode.OK)
         }.onFailure { error ->
             respondWithError(error)
         }
